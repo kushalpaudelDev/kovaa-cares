@@ -1,0 +1,14 @@
+<h1>🐶 Pets List</h1>
+
+<a href="{% url 'pet_create' %}">➕ Add Pet</a>
+
+<ul>
+{% for pet in pets %}
+    <li>
+        {{ pet.name }} ({{ pet.type }})
+
+        <a href="{% url 'pet_update' pet.id %}">Edit</a>
+        <a href="{% url 'pet_delete' pet.id %}">Delete</a>
+    </li>
+{% endfor %}
+</ul>
