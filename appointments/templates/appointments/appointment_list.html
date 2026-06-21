@@ -1,0 +1,16 @@
+<h1>📅 Appointments</h1>
+
+<a href="{% url 'appointment_create' %}">➕ Book Appointment</a>
+
+<ul>
+{% for a in appointments %}
+    <li>
+        🐶 {{ a.pet.name }} |
+        📅 {{ a.date }} |
+        ⚡ {{ a.status }}
+
+        <a href="{% url 'appointment_update' a.id %}">Edit</a>
+        <a href="{% url 'appointment_delete' a.id %}">Delete</a>
+    </li>
+{% endfor %}
+</ul>

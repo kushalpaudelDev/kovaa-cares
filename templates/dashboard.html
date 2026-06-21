@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kovaa Cares Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .label {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 15px;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📊 Kovaa Cares Dashboard</h1>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="number">{{ total_pets }}</div>
+            <div class="label">Total Pets</div>
+        </div>
+
+        <div class="card">
+            <div class="number">{{ total_appointments }}</div>
+            <div class="label">Total Appointments</div>
+        </div>
+
+        <div class="card">
+            <div class="number">{{ pending }}</div>
+            <div class="label">Pending</div>
+        </div>
+
+        <div class="card">
+            <div class="number">{{ completed }}</div>
+            <div class="label">Completed</div>
+        </div>
+
+    </div>
+
+    <div style="text-align:center;">
+        <a href="/" class="btn">← Back to Home</a>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+
+<!--core ko url.py updates,pets/forms.py,pets/views.py,pets/urls.py,pet_list.html/tempaltes-->
