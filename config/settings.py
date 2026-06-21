@@ -1,7 +1,4 @@
-"""
-Django settings for config project.
-"""
-
+ 
 from pathlib import Path
 from decouple import config
 
@@ -99,7 +96,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "static",   
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -110,3 +107,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # DEFAULT PRIMARY KEY
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_URL = "/accounts/login/"             
+
+LOGIN_REDIRECT_URL = "/dashboard/"       
+
+LOGOUT_REDIRECT_URL = "/accounts/login/"  
