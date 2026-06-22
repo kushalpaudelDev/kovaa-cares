@@ -11,11 +11,11 @@ def home(request):
 @login_required
 def dashboard(request):
 
-    total_pets = Pet.objects.count()
-    total_appointments = Appointment.objects.count()
+    total_pets = Pet.objects.filter(owner=request.user).count()
+    total_appointments = Appointment.objects.filter(pet__owner=request.user).count()
 
-    pending = Appointment.objects.filter(status="pending").count()
-    completed = Appointment.objects.filter(status="completed").count()
+    pending = Appointment.objects.filter(pet__owner=request.user, status="Pending").count()
+    completed = Appointment.objects.filter(pet__owner=request.user, status="Completed").count()
 
     context = {
         "total_pets": total_pets,
