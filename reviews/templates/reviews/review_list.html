@@ -1,0 +1,16 @@
+<h1>⭐ Reviews</h1>
+
+<a href="{% url 'review_create' %}">➕ Add Review</a>
+
+<ul>
+{% for review in reviews %}
+    <li>
+        {{ review.user.username }} — {{ review.rating }}/5 — {{ review.created_at }}
+        <p>{{ review.comment }}</p>
+        <a href="{% url 'review_update' review.id %}">Edit</a>
+        <a href="{% url 'review_delete' review.id %}">Delete</a>
+    </li>
+{% empty %}
+    <li>No reviews yet.</li>
+{% endfor %}
+</ul>

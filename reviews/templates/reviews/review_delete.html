@@ -1,0 +1,8 @@
+<h1>Delete Review</h1>
+<p>Are you sure you want to delete the review by {{ review.user.username }}?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Delete</button>
+</form>
+
+<a href="{% url 'review_list' %}">Cancel</a>
