@@ -4,4 +4,11 @@ from .models import Pet
 class PetForm(forms.ModelForm):
     class Meta:
         model = Pet
-        fields = ['name', 'type']
+        fields = [
+            'name',
+            'species',
+            'breed',
+            'age',
+            'gender',
+            'vaccinated',
+        ]
