@@ -1,14 +1,9 @@
-<h1>🐶 Pets List</h1>
+<h1>{% if form.instance.pk %}Edit Pet{% else %}Add Pet{% endif %}</h1>
 
-<a href="{% url 'pet_create' %}">➕ Add Pet</a>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
 
-<ul>
-{% for pet in pets %}
-    <li>
-        {{ pet.name }} ({{ pet.type }})
-
-        <a href="{% url 'pet_update' pet.id %}">Edit</a>
-        <a href="{% url 'pet_delete' pet.id %}">Delete</a>
-    </li>
-{% endfor %}
-</ul>
+<a href="{% url 'pet_list' %}">Back to pets</a>

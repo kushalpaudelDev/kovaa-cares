@@ -2,15 +2,28 @@
 
 <a href="{% url 'appointment_create' %}">➕ Book Appointment</a>
 
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <ul>
 {% for a in appointments %}
     <li>
         🐶 {{ a.pet.name }} |
-        📅 {{ a.date }} |
+        📌 {{ a.service }} |
+        📅 {{ a.appointment_date }} |
         ⚡ {{ a.status }}
-
+        <br>
+        Created: {{ a.created_at }}
+        <br>
         <a href="{% url 'appointment_update' a.id %}">Edit</a>
         <a href="{% url 'appointment_delete' a.id %}">Delete</a>
     </li>
+{% empty %}
+    <li>No appointments yet.</li>
 {% endfor %}
 </ul>

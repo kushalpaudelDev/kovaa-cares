@@ -3,6 +3,14 @@
 <form method="post">
     {% csrf_token %}
 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <input type="text" name="username" placeholder="Username"><br><br>
     <input type="password" name="password" placeholder="Password"><br><br>
 

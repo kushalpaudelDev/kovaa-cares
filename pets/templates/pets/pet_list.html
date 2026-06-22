@@ -1,7 +1,23 @@
-<h1>Pet Form</h1>
+<h1>🐶 Pets</h1>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+<a href="{% url 'pet_create' %}">➕ Add Pet</a>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<ul>
+{% for pet in pets %}
+    <li>
+        <strong>{{ pet.name }}</strong> — {{ pet.species }}{% if pet.breed %} ({{ pet.breed }}){% endif %} — Age {{ pet.age }} — {{ pet.gender }} — Vaccinated: {{ pet.vaccinated|yesno:"Yes,No" }}
+        <a href="{% url 'pet_update' pet.id %}">Edit</a>
+        <a href="{% url 'pet_delete' pet.id %}">Delete</a>
+    </li>
+{% empty %}
+    <li>No pets yet.</li>
+{% endfor %}
+</ul>
