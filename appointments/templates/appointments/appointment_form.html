@@ -1,7 +1,9 @@
-<h1>Appointment Form</h1>
+<h1>{% if form.instance.pk %}Edit Appointment{% else %}Book Appointment{% endif %}</h1>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save</button>
 </form>
+
+<a href="{% url 'appointment_list' %}">Back to appointments</a>
