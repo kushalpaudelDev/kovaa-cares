@@ -1,0 +1,12 @@
+<h1>Payment for Appointment {{ appointment.id }}</h1>
+
+<p>Pet: {{ appointment.pet.name }}</p>
+<p>Service: {{ appointment.service.name }}</p>
+<p>Amount: {{ appointment.service.price }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Pay Now (simulate)</button>
+</form>
+
+<a href="{% url 'payment_list' %}">Back to payments</a>

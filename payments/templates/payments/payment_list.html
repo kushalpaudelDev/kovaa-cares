@@ -1,0 +1,19 @@
+<h1>Payments</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<ul>
+{% for p in payments %}
+    <li>
+        {{ p.appointment }} — {{ p.amount }} — {{ p.status }} — {{ p.paid_at }}
+    </li>
+{% empty %}
+    <li>No payments yet.</li>
+{% endfor %}
+</ul>
