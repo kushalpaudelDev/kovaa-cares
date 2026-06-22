@@ -1,5 +1,6 @@
 from django.db import models
 from pets.models import Pet
+from services.models import Service
 
 
 class Appointment(models.Model):
@@ -12,7 +13,7 @@ class Appointment(models.Model):
     ]
 
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    service = models.CharField(max_length=100)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
 
     appointment_date = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
