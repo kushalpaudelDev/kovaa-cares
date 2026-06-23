@@ -1,9 +1,19 @@
-<h1>{% if form.instance.pk %}Edit Review{% else %}Add Review{% endif %}</h1>
+{% extends 'base.html' %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+{% block title %}{% if form.instance.pk %}Edit Review{% else %}Add Review{% endif %} | Kovaa Cares{% endblock %}
 
-<a href="{% url 'review_list' %}">Back to reviews</a>
+{% block content %}
+<div class="form-card">
+    <h1>{% if form.instance.pk %}Edit Review{% else %}Add Review{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="button">Save</button>
+        </div>
+    </form>
+    <div class="link-row">
+        <a href="{% url 'review_list' %}" class="button secondary">Back to reviews</a>
+    </div>
+</div>
+{% endblock %}
