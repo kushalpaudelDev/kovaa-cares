@@ -1,20 +1,27 @@
-<h2>Login</h2>
+{% extends 'base.html' %}
 
-<form method="post">
-    {% csrf_token %}
+{% block title %}Login | Kovaa Cares{% endblock %}
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    <input type="text" name="username" placeholder="Username"><br><br>
-    <input type="password" name="password" placeholder="Password"><br><br>
-
-    <button type="submit">Login</button>
-</form>
-
-<a href="{% url 'register' %}">Create account</a>
+{% block content %}
+<div class="form-card">
+    <h1>Login</h1>
+    <form method="post" data-validate="on" aria-labelledby="login-heading">
+        {% csrf_token %}
+        <div class="form-row">
+            {% for field in form.visible_fields %}
+            <div class="field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}<div class="error-text">{{ field.errors|join:", " }}</div>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn">Login</button>
+        </div>
+    </form>
+    <div class="link-row">
+        <a href="{% url 'register' %}" class="btn secondary">Create account</a>
+    </div>
+</div>
+{% endblock %}
