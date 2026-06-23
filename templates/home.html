@@ -1,124 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Kovaa Cares | Smart Pet Platform</title>
+{% block title %}Kovaa Cares{% endblock %}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: #f4f6f8;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 80px auto;
-            text-align: center;
-        }
-
-        .hero {
-            background: white;
-            padding: 50px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #555;
-            font-size: 15px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 18px;
-            margin: 5px;
-            border-radius: 6px;
-            text-decoration: none;
-            color: white;
-        }
-
-        .admin { background: #2c3e50; }
-        .pets { background: #27ae60; }
-        .book { background: #2980b9; }
-
-        .grid {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            width: 200px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    <div class="hero">
-
-        <h1>🐾 Kovaa Cares</h1>
-
-        <p>
-            Smart pet care platform for managing pets, appointments, and services efficiently.
-        </p>
-
-        <a href="{% url 'admin:index' %}" class="btn admin">Admin Panel</a>
-        <a href="/pets/" class="btn pets">View Pets</a>
-        <a href="/appointments/" class="btn book">Appointments</a>
-        <a href="/reviews/" class="btn" style="background:#8e44ad;">Reviews</a>
-
+{% block content %}
+<div class="hero">
+    <h1>Welcome to Kovaa Cares</h1>
+    <p>Your all-in-one pet care manager for bookings, payments, and happy furry families.</p>
+    <div class="link-row">
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="button">Go to Dashboard</a>
+            <a href="{% url 'pet_list' %}" class="button secondary">Manage Pets</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="button">Create Account</a>
+            <a href="{% url 'login' %}" class="button secondary">Login</a>
+        {% endif %}
     </div>
-
-    <div class="grid">
-
-        <div class="card">
-            <h3>🐶 Pets</h3>
-            <p>Manage all registered pets</p>
-        </div>
-
-        <div class="card">
-            <h3>📅 Appointments</h3>
-            <p>Track bookings & schedule</p>
-        </div>
-
-        <div class="card">
-            <h3>⭐ Reviews</h3>
-            <p>Collect user feedback</p>
-        </div>
-
-        <div class="card">
-            <h3>⚙ System</h3>
-            <p>Admin controls & settings</p>
-        </div>
-
-    </div>
-
 </div>
 
-</body>
-
-</html>
+{% if user.is_authenticated %}
+<div class="grid">
+    <div class="card">
+        <div class="number">{{ pet_count }}</div>
+        <div class="label">Your Pets</div>
+    </div>
+    <div class="card">
+        <div class="number">{{ appointment_count }}</div>
+        <div class="label">Appointments</div>
+    </div>
+    <div class="card">
+        <div class="number">{{ pending_appointments }}</div>
+        <div class="label">Pending Visits</div>
+    </div>
+    <div class="card">
+        <div class="number">{{ paid_payments }}</div>
+        <div class="label">Completed Payments</div>
+    </div>
+    <div class="card">
+        <div class="number">{{ review_count }}</div>
+        <div class="label">Your Reviews</div>
+    </div>
+</div>
+{% else %}
+<div class="card">
+    <h2>Get started with a beautiful pet care workflow</h2>
+    <p>Register today to track your pets, schedule visits, manage payments, and collect reviews in one place.</p>
+</div>
+{% endif %}
+{% endblock %}
