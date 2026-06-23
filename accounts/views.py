@@ -1,35 +1,38 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
+from django.contrib import messages
+from .forms import RegisterForm, LoginForm
 
 def register_view(request):
-    form = UserCreationForm()
+    if request.user.is_authenticated:
+        return redirect('dashboard')
 
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect("dashboard")
+    form = RegisterForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = form.save()
+        login(request, user)
+        messages.success(request, 'Account created successfully.')
+        return redirect('dashboard')
 
-    return render(request, "accounts/register.html", {"form": form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 
 def login_view(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+    if request.user.is_authenticated:
+        return redirect('dashboard')
 
-        user = authenticate(request, username=username, password=password)
+    form = LoginForm(request, data=request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        messages.success(request, f'Welcome back, {user.username}!')
+        return redirect('dashboard')
 
-        if user:
-            login(request, user)
-            return redirect("dashboard")
-
-    return render(request, "accounts/login.html")
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 
 def logout_view(request):
     logout(request)
+    messages.success(request, 'You have successfully logged out.')
     return redirect("login")
