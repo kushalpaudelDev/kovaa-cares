@@ -4,6 +4,7 @@ from .models import Service
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'duration')
+    list_editable = ('price', 'duration')
     search_fields = ('name', 'description')
 
 
