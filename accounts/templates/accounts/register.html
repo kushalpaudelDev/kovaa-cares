@@ -1,16 +1,56 @@
-<h2>Register</h2>
+{% extends 'base.html' %}
 
-<form method="post">
-    {% csrf_token %}
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+{% block title %}Register | Kovaa Cares{% endblock %}
 
-<a href="{% url 'login' %}">Already have account? Login</a>
+{% block content %}
+<div class="form-card" style="max-width:560px;margin:0 auto;" role="region" aria-labelledby="register-heading">
+    <h1 id="register-heading">Create Your Account</h1>
+    <p>Join Kovaa Cares to manage pets, bookings, payments, and reviews with an easy dashboard.</p>
+    <form method="post" novalidate aria-describedby="register-help" role="form">
+        {% csrf_token %}
+        <div id="register-help" class="sr-only">Registration form: username, email and password fields.</div>
+        {{ form.non_field_errors }}
+
+        <div class="form-row">
+            <div class="field">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div id="error-username" class="error-text">{{ form.username.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <div class="field">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div id="error-email" class="error-text">{{ form.email.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="field">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div id="error-password1" class="error-text">{{ form.password1.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <div class="field">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div id="error-password2" class="error-text">{{ form.password2.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Create Account</button>
+        </div>
+    </form>
+    <div class="link-row">
+        <a href="{% url 'login' %}" class="btn secondary">Already have an account? Login</a>
+    </div>
+</div>
+{% endblock %}
