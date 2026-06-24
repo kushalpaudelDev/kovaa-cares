@@ -1,10 +1,17 @@
-<h1>Delete Pet</h1>
+{% extends 'base.html' %}
 
-<p>Are you sure you want to delete "{{ pet.name }}"?</p>
+{% block title %}Delete Pet | Kovaa Cares{% endblock %}
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes Delete</button>
-</form>
-
-<a href="{% url 'pet_list' %}">Cancel</a>
+{% block content %}
+<div class="form-card">
+    <h1>Delete Pet</h1>
+    <p>Are you sure you want to delete "{{ pet.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="button">Yes, Delete</button>
+            <a href="{% url 'pet_list' %}" class="button secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
