@@ -10,8 +10,18 @@ class Pet(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pets')
 
+    SPECIES_CHOICES = [
+        ('Dog', 'Dog'),
+        ('Cat', 'Cat'),
+        ('Bird', 'Bird'),
+        ('Rabbit', 'Rabbit'),
+        ('Reptile', 'Reptile'),
+        ('Fish', 'Fish'),
+        ('Other', 'Other'),
+    ]
+
     name = models.CharField(max_length=100)
-    species = models.CharField(max_length=50)   # dog, cat
+    species = models.CharField(max_length=50, choices=SPECIES_CHOICES)
     breed = models.CharField(max_length=100, blank=True)
     age = models.IntegerField()
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
@@ -23,5 +33,6 @@ class Pet(models.Model):
         return self.name
 
     class Meta:
+        db_table = 'pets'
         ordering = ['-created_at']
         verbose_name_plural = 'Pets'

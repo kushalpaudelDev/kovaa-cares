@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Kovaa Cares Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/custom_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="branding-wrap">
+    <a href="{% url 'admin:index' %}" id="brand-link">
+        <div id="brand-text">
+            <h1 id="site-name">Kovaa Cares</h1>
+            <p id="site-sub">Pet care management</p>
+        </div>
+    </a>
+</div>
+{% endblock %}
+
+{% block nav-global %}
+{{ block.super }}
+{% endblock %}

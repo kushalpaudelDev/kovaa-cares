@@ -4,7 +4,6 @@ from services.models import Service
 
 
 class Appointment(models.Model):
-
     STATUS_CHOICES = [
         ('Pending', 'Pending'),
         ('Confirmed', 'Confirmed'),
@@ -12,8 +11,8 @@ class Appointment(models.Model):
         ('Cancelled', 'Cancelled'),
     ]
 
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='appointments')
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='appointments')
 
     appointment_date = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
@@ -23,3 +22,12 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"{self.pet.name} - {self.service}"
+
+    @property
+    def is_paid(self):
+        return self.payments.filter(status='Paid').exists()
+
+    class Meta:
+        db_table = 'appointments'
+        ordering = ['-appointment_date', '-created_at']
+        verbose_name_plural = 'Appointments'

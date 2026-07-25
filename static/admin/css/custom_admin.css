@@ -1,0 +1,41 @@
+/* Custom admin theme for Kovaa Cares */
+:root{ --kc-accent:#2563eb; --kc-bg:#0b1220; --kc-panel:#0f172a; --kc-light:#f8fafc }
+html .model-admin { }
+
+/* header */
+#header { background: linear-gradient(90deg,var(--kc-panel),#071029); box-shadow:0 6px 18px rgba(2,6,23,0.6); }
+#header h1 a{ color:var(--kc-light); font-weight:700 }
+
+/* branding */
+#branding-wrap { display:flex; align-items:center; gap:12px; }
+#brand-link { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit }
+#admin-logo { width:44px; height:44px; display:block }
+#brand-text { line-height:1 }
+#site-name { margin:0; font-size:17px; color:var(--kc-light) }
+#site-sub { margin:0; font-size:13px; color: rgba(248,250,252,0.8) }
+
+/* nav */
+.module { background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent); border-radius:6px }
+
+/* change buttons */
+.submit-row .default, .button, .deletelink { background:var(--kc-accent); color:#fff; border-radius:6px; border:none }
+
+.deletelink { background:#ef4444 }
+
+/* table rows */
+.results table tr:hover { background: rgba(37,99,235,0.04) }
+
+/* form fields */
+label { color:#e6eefc }
+fieldset.module { background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent); padding:18px; border-radius:8px }
+
+/* footer */
+#site-name a { color: var(--kc-light); text-decoration:none }
+
+/* better table contrast */
+.results table th { background: rgba(255,255,255,0.03); color: var(--kc-light); font-weight:600 }
+.results table td { color: rgba(255,255,255,0.9) }
+
+/* buttons */
+.button { box-shadow: 0 6px 18px rgba(37,99,235,0.12) }
+.deletelink { box-shadow:none }

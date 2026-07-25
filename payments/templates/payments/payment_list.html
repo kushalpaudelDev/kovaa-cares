@@ -1,19 +1,59 @@
-<h1>Payments</h1>
+{% extends 'base.html' %}
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
+{% block title %}Payments | Kovaa Cares{% endblock %}
+
+{% block content %}
+<div class="hero" style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+    <div>
+        <h1>Payments</h1>
+        <p>Review charges and complete payments securely.</p>
+    </div>
+    <div style="display: flex; gap: 8px; align-items: center;">
+        <a class="btn secondary" href="#"><i class="fa fa-filter"></i> Filter</a>
+        <a class="btn" href="#"><i class="fa fa-download"></i> Export</a>
+    </div>
+</div>
+
+{% if payments %}
+<div class="table-card">
+<table>
+    <thead>
+        <tr>
+            <th>Appointment</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for p in payments %}
+        <tr>
+            <td>
+                <div style="font-weight: bold;">{{ p.appointment }}</div>
+                <div class="text-muted" style="font-size: 0.9rem;">{{ p.appointment.pet.name }} &bull; {{ p.appointment.appointment_date }}</div>
+            </td>
+            <td style="font-weight: bold;">${{ p.amount }}</td>
+            <td>
+                <span class="status-pill {% if p.status == 'Paid' %}paid{% else %}pending{% endif %}">{{ p.status }}</span>
+            </td>
+            <td>{{ p.paid_at|default:'Pending' }}</td>
+            <td class="actions">
+                {% if p.status != 'Paid' %}
+                    <a href="{% url 'payment_page' p.appointment.id %}" class="btn"><i class="fa fa-credit-card"></i> Pay</a>
+                {% else %}
+                    <span class="pill paid">Completed</span>
+                {% endif %}
+            </td>
+        </tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
+</div>
+{% else %}
+    <div class="empty-state">
+        <h2>No payments yet</h2>
+        <p>Once you schedule appointments, the payment records will appear here with quick payment actions.</p>
+    </div>
 {% endif %}
-
-<ul>
-{% for p in payments %}
-    <li>
-        {{ p.appointment }} — {{ p.amount }} — {{ p.status }} — {{ p.paid_at }}
-    </li>
-{% empty %}
-    <li>No payments yet.</li>
-{% endfor %}
-</ul>
+{% endblock %}

@@ -1,9 +1,27 @@
-<h1>{% if form.instance.pk %}Edit Appointment{% else %}Book Appointment{% endif %}</h1>
+{% extends 'base.html' %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+{% block title %}{% if form.instance.pk %}Edit Appointment{% else %}Book Appointment{% endif %} | Kovaa Cares{% endblock %}
 
-<a href="{% url 'appointment_list' %}">Back to appointments</a>
+{% block content %}
+<div class="form-card">
+    <h1>{% if form.instance.pk %}Edit Appointment{% else %}Book Appointment{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="grid">
+            {% for field in form.visible_fields %}
+            <div class="field col-6">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}<div class="error-text">{{ field.errors|join:", " }}</div>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn">Save</button>
+        </div>
+    </form>
+    <div class="link-row">
+        <a href="{% url 'appointment_list' %}" class="btn secondary">Back to appointments</a>
+    </div>
+</div>
+{% endblock %}
